@@ -1,12 +1,10 @@
 package com.doctor.ClassroomPlus.user.repository;
 
-import com.doctor.ClassroomPlus.user.userdbmodel.User;
+import com.doctor.ClassroomPlus.user.userdbmodel.UserDb;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
-    public User findUserByEmailId(String emailId);
+public interface UserRepository extends JpaRepository<UserDb,Long> {
+    public UserDb findUserByEmailId(String emailId);
 }

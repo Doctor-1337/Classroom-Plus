@@ -1,6 +1,6 @@
 package com.doctor.ClassroomPlus.user.auth;
 
-import com.doctor.ClassroomPlus.user.userdbmodel.User;
+import com.doctor.ClassroomPlus.user.userdbmodel.UserDb;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,46 +13,46 @@ import java.util.List;
 @Component
 public class UserSecurity implements UserDetails {
 
-    private final User user;
+    private final UserDb userDb;
 
-    public UserSecurity(User user){
-        this.user = user;
+    public UserSecurity(UserDb userDb){
+        this.userDb = userDb;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        authorities.add(new SimpleGrantedAuthority("ADMIN"));
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userDb.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmailId();
+        return userDb.getEmailId();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !userDb.getIsDeleted() ;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !userDb.getIsDeleted();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !userDb.getIsDeleted();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !userDb.getIsDeleted();
     }
 }

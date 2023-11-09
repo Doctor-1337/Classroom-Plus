@@ -1,7 +1,8 @@
 package com.doctor.ClassroomPlus.user.usercontroller;
 
+import com.doctor.ClassroomPlus.user.datamodel.UserModel;
 import com.doctor.ClassroomPlus.user.service.UserService;
-import com.doctor.ClassroomPlus.user.userdbmodel.User;
+import com.doctor.ClassroomPlus.user.userdbmodel.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,19 +13,19 @@ public class UserController {
     @Autowired
     UserService userService;
     @PostMapping("register")
-    public User signUp(@RequestBody User user){
+    public UserDb signUp(@RequestBody UserModel user){
         System.out.println("Register");
         return userService.addUser(user);
     }
 
     @GetMapping("delete")
-    public String deleteUser(){
+    public UserDb deleteUser(@RequestBody UserModel user){
         System.out.println("Delete");
-        return "User delete Api";
+        return userService.deleteUser(user);
     }
 
     @PostMapping("login")
-    public String login(@RequestBody User requestBody){
+    public String login(@RequestBody UserDb requestBody){
         System.out.println("Login");
         return "User login Api";
 
